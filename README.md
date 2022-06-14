@@ -33,7 +33,7 @@ Runs the app in the ios development mode.\
 
 The app will reload if you make edits.\
 
-### `yarn  start`
+### `yarn run start`
 
 Runs the react native application .\
 
