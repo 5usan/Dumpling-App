@@ -2,9 +2,9 @@ import {ImageBackground, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 
-const CategoryCard = ({name, image}) => {
+const CategoryCard = ({name, image, onPress}) => {
   return (
-    <Pressable>
+    <Pressable onPress={onPress}>
       <ImageBackground
         source={{uri: image}}
         imageStyle={styles.img}
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:20,
+    marginBottom: 20,
   },
 
   text: {
