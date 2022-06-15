@@ -11,10 +11,15 @@ export const stylesConstant = {
     inActiveColor: 'grey',
     backgroundColor: '#F6F5F8',
     cardBackgroundColor: '#FFF',
+    btnColor: '#FF4500',
   },
   size: {
-    productCardWidth: 160,
-    productCardHeight: 160,
+    productCardWidth: 180,
+    productCardHeight: 170,
     productCardFintSize: 5,
+    btnTextSize: 12,
+  },
+  textSize: {
+    headers: 17,
   },
 };
