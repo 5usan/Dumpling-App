@@ -64,7 +64,7 @@ const Home = ({navigation}) => {
 
       <View style={styles.features}>
         <View style={styles.heading}>
-          <Text style={styles.header}>Categories</Text>
+          <Text style={styles.header}>Feature Categories</Text>
           <View style={styles.btn}>
             <Button name="See More" onPress={pressHandler} />
           </View>
@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     backgroundColor: stylesConstant.color.cardBackgroundColor,
     paddingBottom: 10,
+    borderRadius: 10,
   },
 
   heading: {
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: stylesConstant.color.primaryColor,
     padding: 10,
-    paddingLeft: 0,
+    paddingLeft: 5,
     letterSpacing: 0.8,
   },
 
