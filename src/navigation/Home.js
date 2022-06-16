@@ -14,7 +14,10 @@ import {stylesConstant} from '../styles/abstracts/abstracts';
 import CategoryCard from '../component/CategoryCard';
 import Button from '../component/common/Button';
 
-const Home = () => {
+const Home = ({navigation}) => {
+  const pressHandler = () => {
+    navigation.navigate('Category');
+  };
   return (
     <ScreenWrapper>
       <View style={styles.heroSection}>
@@ -55,7 +58,7 @@ const Home = () => {
         <View style={styles.heading}>
           <Text style={styles.header}>Categories</Text>
           <View style={styles.btn}>
-            <Button name="See More" />
+            <Button name="See More" onPress={pressHandler} />
           </View>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
