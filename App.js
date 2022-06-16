@@ -45,6 +45,7 @@ const App = () => {
                   tabBarAllowFontScaling: true,
                   tabBarBadgeStyle: {backgroundColor: 'green'},
                   tabBarStyle: {justifyContent: 'center'},
+                  tabBarHideOnKeyboard: true,
                   ...(obj.tabBarBadge ? {tabBarBadge: 3} : {}),
                 };
               }}
