@@ -16,8 +16,12 @@ import SearchBar from '../component/SearchBar';
 import FeatureProductCard from '../component/FeatureProductCard';
 
 const Home = ({navigation}) => {
-  const pressHandler = () => {
-    navigation.navigate('Category');
+  const pressHandler = e => {
+    if (e) {
+      navigation.navigate('Search');
+    } else {
+      navigation.navigate('Category');
+    }
   };
   return (
     <ScreenWrapper>
@@ -40,7 +44,12 @@ const Home = ({navigation}) => {
         <View style={styles.heading}>
           <Text style={styles.header}>Exclusively at Dumpling</Text>
           <View style={styles.btn}>
-            <Button name="See More" />
+            <Button
+              name="See More"
+              onPress={() => {
+                navigation.navigate('Search');
+              }}
+            />
           </View>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -66,7 +75,12 @@ const Home = ({navigation}) => {
         <View style={styles.heading}>
           <Text style={styles.header}>Feature Categories</Text>
           <View style={styles.btn}>
-            <Button name="See More" onPress={pressHandler} />
+            <Button
+              name="See More"
+              onPress={() => {
+                navigation.navigate('Category');
+              }}
+            />
           </View>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>

@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {View, FlatList, StyleSheet, Text, Pressable} from 'react-native';
 import SearchBar from '../component/SearchBar';
 import {allProducts} from '../assets/constants';
-import ProductCard from './ProductCard';
+import ProductCard from '../component/ProductCard';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 
@@ -58,6 +58,7 @@ const Search = () => {
           renderItem={renderItem}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 57}}
         />
       </View>
     </>
