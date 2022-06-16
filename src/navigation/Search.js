@@ -1,13 +1,16 @@
 import React from 'react';
 import {View, Text} from 'react-native';
+import SearchBar from '../component/SearchBar';
 import ScreenWrapper from '../containers/ScreenWrapper';
 
 const Search = () => {
   return (
     <ScreenWrapper>
-      <View>
-        <Text style={{color: 'black'}}>testing Search</Text>
-      </View>
+      <SearchBar
+        placeholder={'Search by name,category here...'}
+        value={''}
+        valueSet={() => null}
+      />
     </ScreenWrapper>
   );
 };

@@ -30,7 +30,7 @@ const App = () => {
               options={({route}) => {
                 return {
                   tabBarIcon: ({focused, color, size}) => {
-                    let sizeApply = focused ? 36 : 28;
+                    let sizeApply = focused ? 28 : 24;
                     return (
                       <IconContainer
                         icon={obj.icon}
@@ -48,6 +48,7 @@ const App = () => {
                     backgroundColor: stylesConstant.color.colorSuccess,
                   },
                   tabBarStyle: {justifyContent: 'center'},
+                  tabBarHideOnKeyboard: true,
                   ...(obj.tabBarBadge ? {tabBarBadge: 3} : {}),
                 };
               }}
