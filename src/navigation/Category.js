@@ -39,7 +39,7 @@ export default Category;
 
 const styles = StyleSheet.create({
   headerWrapper: {
-    height: 50,
+    height: '6%',
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',

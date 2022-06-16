@@ -6,9 +6,12 @@ import {allProducts} from '../assets/constants';
 import ProductCard from '../component/ProductCard';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import ProductDetails from '../component/ProductDetails';
 
 const Search = () => {
   const [searchShow, setSearchShow] = useState(false);
+  const [showSingleProduct, setShowSingleProduct] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState();
   const renderItem = ({item}) => (
     <View style={styles.product}>
       <ProductCard
@@ -16,7 +19,8 @@ const Search = () => {
         image={item.image}
         price={item.price}
         onPress={() => {
-          console.log('a');
+          setShowSingleProduct(true);
+          setSelectedProduct(item);
         }}
       />
     </View>
@@ -31,7 +35,18 @@ const Search = () => {
   };
 
   return (
-    <>
+    <View style={styles.wrapper}>
+      {showSingleProduct && (
+        <View style={styles.singleProduct}>
+          <ProductDetails
+            name={selectedProduct.name}
+            image={selectedProduct.image}
+            description={selectedProduct.description}
+            price={selectedProduct.price}
+            onPress={() => setShowSingleProduct(false)}
+          />
+        </View>
+      )}
       <View style={styles.headerWrapper}>
         {searchShow ? (
           <SearchBar
@@ -52,7 +67,7 @@ const Search = () => {
           </>
         )}
       </View>
-      <View style={styles.products}>
+      <View style={styles.product}>
         <FlatList
           data={allProducts}
           renderItem={renderItem}
@@ -61,13 +76,16 @@ const Search = () => {
           contentContainerStyle={{paddingBottom: 57}}
         />
       </View>
-    </>
+    </View>
   );
 };
 
 export default Search;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    position: 'relative',
+  },
   headerWrapper: {
     height: 50,
     flexDirection: 'row',
@@ -89,5 +107,14 @@ const styles = StyleSheet.create({
   product: {
     marginTop: 8,
     marginHorizontal: 8,
+    opacity: 1,
+  },
+  singleProduct: {
+    position: 'absolute',
+    top: '6%',
+    height: '88%',
+    width: '100%',
+    zIndex: 1,
+    padding: 40,
   },
 });

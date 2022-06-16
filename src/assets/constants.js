@@ -105,6 +105,8 @@ export const allProducts = [
     name: 'Jhol momo',
     price: '$60',
     image: 'https://ktmguide.com/wp-content/uploads/2019/09/nn.jpg',
+    description:
+      'Momo is a type of steamed dumpling with some form of filling, most commonly beef and it is originally from Tibet.',
   },
   {
     id: '2',
@@ -112,6 +114,8 @@ export const allProducts = [
     price: '$60',
     image:
       'https://tiffycooks.com/wp-content/uploads/2021/02/Pork-and-Chives-Dumplings.png',
+    description:
+      'Momo is a type of steamed dumpling with some form of filling, most commonly beef and it is originally from Tibet.',
   },
   {
     id: '3',
@@ -119,6 +123,8 @@ export const allProducts = [
     price: '$60',
     image:
       'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
+    description:
+      'Momo is a type of steamed dumpling with some form of filling, most commonly beef and it is originally from Tibet.',
   },
   {
     id: '4',
@@ -126,12 +132,16 @@ export const allProducts = [
     price: '$60',
     image:
       'https://res.cloudinary.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/niejlwued12ctp4rsenp',
+    description:
+      'Momo is a type of steamed dumpling with some form of filling, most commonly beef and it is originally from Tibet.',
   },
   {
     id: '5',
     name: 'Jhol momo',
     price: '$60',
     image: 'https://ktmguide.com/wp-content/uploads/2019/09/nn.jpg',
+    description:
+      'Momo is a type of steamed dumpling with some form of filling, most commonly beef and it is originally from Tibet.',
   },
   {
     id: '6',
@@ -139,6 +149,8 @@ export const allProducts = [
     price: '$60',
     image:
       'https://tiffycooks.com/wp-content/uploads/2021/02/Pork-and-Chives-Dumplings.png',
+    description:
+      'Momo is a type of steamed dumpling with some form of filling, most commonly beef and it is originally from Tibet.',
   },
   {
     id: '7',
@@ -146,6 +158,8 @@ export const allProducts = [
     price: '$60',
     image:
       'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
+    description:
+      'Momo is a type of steamed dumpling with some form of filling, most commonly beef and it is originally from Tibet.',
   },
   {
     id: '8',
@@ -153,5 +167,7 @@ export const allProducts = [
     price: '$60',
     image:
       'https://res.cloudinary.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/niejlwued12ctp4rsenp',
+    description:
+      'Momo is a type of steamed dumpling with some form of filling, most commonly beef and it is originally from Tibet.',
   },
 ];

@@ -5,10 +5,10 @@ import {faCartPlus, faCartShopping} from '@fortawesome/free-solid-svg-icons';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import rating from '../assets/rating.png';
 
-const ProductCard = ({name, price, image}) => {
+const ProductCard = ({name, price, image, onPress}) => {
   const [cartAdded, setCartAdded] = useState(false);
   return (
-    <View style={styles.wrapper}>
+    <Pressable style={styles.wrapper} onPress={onPress}>
       <Image source={{uri: image}} style={styles.image} />
       <View style={styles.description}>
         <View style={styles.desc}>
@@ -17,20 +17,22 @@ const ProductCard = ({name, price, image}) => {
           <Image source={rating} style={styles.rating} />
         </View>
         <View>
-          <Pressable onPress={() => setCartAdded(pre => !pre)}>
+          <Pressable
+            onPress={() => setCartAdded(pre => !pre)}
+            style={styles.cart}>
             {!cartAdded ? (
-              <FontAwesomeIcon icon={faCartPlus} color="#4f4f4f" size="28" />
+              <FontAwesomeIcon icon={faCartPlus} color="#4f4f4f" size={28} />
             ) : (
               <FontAwesomeIcon
                 icon={faCartShopping}
                 color={stylesConstant.color.btnColor}
-                size="28"
+                size={28}
               />
             )}
           </Pressable>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -81,5 +83,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: 60,
     height: 12,
+  },
+  cart: {
+    zIndex: 1,
   },
 });
