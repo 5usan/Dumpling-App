@@ -36,16 +36,17 @@ const styles = StyleSheet.create({
 
   textContainer: {
     backgroundColor: 'rgba(68, 68, 68, 0.6)',
-    borderRadius: 50,
+    // borderRadius: 50,
     width: '98%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
+    padding: 2,
   },
 
   text: {
-    fontSize: 20,
+    fontSize: 18,
     color: 'white',
     fontWeight: '300',
     letterSpacing: 1,
