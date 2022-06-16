@@ -18,14 +18,14 @@ const SearchBar = ({value, valueSet, placeholder, touchHandler}) => {
         value={input}
         onChangeText={value => inputSet(value)}
         placeholder={placeholder}
-        placeholderTextColor={stylesConstant.color}
+        placeholderTextColor={stylesConstant.color.inActiveColor}
         onBlur={() => valueSet(input.trim())}
       />
       <TouchableWithoutFeedback onPress={touchHandler}>
         <View style={styles.iconWrapper}>
           <FontAwesomeIcon
             icon={faSearch}
-            color={stylesConstant.color}
+            color={stylesConstant.color.inActiveColor}
             size={18}
           />
         </View>
