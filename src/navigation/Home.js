@@ -27,7 +27,7 @@ const Home = ({navigation}) => {
     <ScreenWrapper>
       <View style={styles.searchBarWrapper}>
         <SearchBar
-          placeholder={'Search by name,category here...'}
+          placeholder={'Search by name, category here...'}
           value={''}
           valueSet={() => null}
         />
@@ -113,9 +113,9 @@ const styles = StyleSheet.create({
   },
   searchBarWrapper: {
     top: 20,
-    left: 20,
-    right: 20,
-    zIndex: 5,
+    left: 5,
+    right: 5,
+    zIndex: 2,
     position: 'absolute',
     opacity: 0.8,
   },
