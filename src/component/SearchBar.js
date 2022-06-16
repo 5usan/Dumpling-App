@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import {stylesConstant} from '../styles/abstracts/abstracts';
 
 const SearchBar = ({value, valueSet, placeholder, touchHandler}) => {
   const [input, inputSet] = useState(value);
@@ -17,12 +18,16 @@ const SearchBar = ({value, valueSet, placeholder, touchHandler}) => {
         value={input}
         onChangeText={value => inputSet(value)}
         placeholder={placeholder}
-        placeholderTextColor="grey"
+        placeholderTextColor={stylesConstant.color}
         onBlur={() => valueSet(input.trim())}
       />
-      <TouchableWithoutFeedback>
-        <View style={styles.iconWrapper} onPress={touchHandler}>
-          <FontAwesomeIcon icon={faSearch} color={'grey'} size={24} />
+      <TouchableWithoutFeedback onPress={touchHandler}>
+        <View style={styles.iconWrapper}>
+          <FontAwesomeIcon
+            icon={faSearch}
+            color={stylesConstant.color}
+            size={18}
+          />
         </View>
       </TouchableWithoutFeedback>
     </View>
@@ -33,24 +38,30 @@ export default SearchBar;
 const styles = StyleSheet.create({
   inputWrapper: {
     width: '100%',
-    backgroundColor: 'white',
-    shadowColor: 'black',
+    backgroundColor: stylesConstant.color.secondaryColor,
+    shadowColor: stylesConstant.color.primaryColor,
     borderRadius: 20,
-    shadowRadius: 40,
+    shadowOffset: {width: 0, height: 10},
+    shadowRadius: 20,
+    shadowOpacity: 80,
+    elevation: 20,
   },
   inputBox: {
     width: '100%',
+    padding: 0,
     paddingHorizontal: '10%',
-    borderColor: 'white',
+    paddingVertical: 6,
+    borderColor: stylesConstant.color.secondaryColor,
     borderWidth: 1,
     borderStyle: 'solid',
     borderRadius: 20,
-    color: 'grey',
+    color: stylesConstant.color.inActiveColor,
   },
   iconWrapper: {
     position: 'absolute',
-    top: '26%',
+    top: '31%',
     left: '90%',
-    width: 24,
+    width: 18,
+    height: 18,
   },
 });

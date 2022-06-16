@@ -13,10 +13,18 @@ import {featureProducts, categories} from '../assets/constants';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import CategoryCard from '../component/CategoryCard';
 import Button from '../component/common/Button';
+import SearchBar from '../component/SearchBar';
 
 const Home = () => {
   return (
     <ScreenWrapper>
+      <View style={styles.searchBarWrapper}>
+        <SearchBar
+          placeholder={'Search by name,category here...'}
+          value={''}
+          valueSet={() => null}
+        />
+      </View>
       <View style={styles.heroSection}>
         <Image
           style={styles.image}
@@ -86,16 +94,20 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height / 3,
     width: '100%',
   },
+  searchBarWrapper: {
+    top: 20,
+    left: 20,
+    right: 20,
+    zIndex: 5,
+    position: 'absolute',
+    opacity: 0.8,
+  },
 
   image: {resizeMode: 'cover', height: '100%', width: '100%'},
 
   features: {
     marginTop: 8,
     backgroundColor: stylesConstant.color.cardBackgroundColor,
-    // shadowColor: '#000',
-    // shadowOffset: {width: 0, height: 1},
-    // shadowRadius: 2,
-    // elevation: 8,
     paddingBottom: 10,
   },
 
