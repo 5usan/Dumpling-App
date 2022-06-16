@@ -3,14 +3,14 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {View, FlatList, StyleSheet, Text, Pressable} from 'react-native';
 import SearchBar from '../component/SearchBar';
 import {allProducts} from '../assets/constants';
-import ProductCard from '../component/ProductCard';
+import ProductCard from './ProductCard';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 
 const Search = () => {
   const [searchShow, setSearchShow] = useState(false);
   const renderItem = ({item}) => (
-    <View>
+    <View style={styles.product}>
       <ProductCard
         name={item.name}
         image={item.image}
@@ -52,13 +52,14 @@ const Search = () => {
           </>
         )}
       </View>
-
-      <FlatList
-        data={allProducts}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-      />
+      <View style={styles.products}>
+        <FlatList
+          data={allProducts}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </>
   );
 };
@@ -82,5 +83,10 @@ const styles = StyleSheet.create({
     color: stylesConstant.color.primaryColor,
     fontSize: 22,
     fontWeight: 'bold',
+  },
+
+  product: {
+    marginTop: 8,
+    marginHorizontal: 8,
   },
 });

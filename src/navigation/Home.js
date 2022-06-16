@@ -13,7 +13,7 @@ import {stylesConstant} from '../styles/abstracts/abstracts';
 import CategoryCard from '../component/CategoryCard';
 import Button from '../component/common/Button';
 import SearchBar from '../component/SearchBar';
-import FeatureProductCard from '../component/ProductCard';
+import FeatureProductCard from '../component/FeatureProductCard';
 
 const Home = ({navigation}) => {
   const pressHandler = () => {
