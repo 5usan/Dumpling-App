@@ -98,3 +98,60 @@ export const allCategories = [
       'https://tiffycooks.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-02-at-1.01.20-AM.png',
   },
 ];
+
+export const allProducts = [
+  {
+    id: '1',
+    name: 'Jhol momo',
+    price: '$60',
+    image: 'https://ktmguide.com/wp-content/uploads/2019/09/nn.jpg',
+  },
+  {
+    id: '2',
+    name: 'Steam momo',
+    price: '$60',
+    image:
+      'https://tiffycooks.com/wp-content/uploads/2021/02/Pork-and-Chives-Dumplings.png',
+  },
+  {
+    id: '3',
+    name: 'Fry momo',
+    price: '$60',
+    image:
+      'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
+  },
+  {
+    id: '4',
+    name: 'Kothey momo',
+    price: '$60',
+    image:
+      'https://res.cloudinary.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/niejlwued12ctp4rsenp',
+  },
+  {
+    id: '5',
+    name: 'Jhol momo',
+    price: '$60',
+    image: 'https://ktmguide.com/wp-content/uploads/2019/09/nn.jpg',
+  },
+  {
+    id: '6',
+    name: 'Steam momo',
+    price: '$60',
+    image:
+      'https://tiffycooks.com/wp-content/uploads/2021/02/Pork-and-Chives-Dumplings.png',
+  },
+  {
+    id: '7',
+    name: 'Fry momo',
+    price: '$60',
+    image:
+      'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
+  },
+  {
+    id: '8',
+    name: 'Kothey momo',
+    price: '$60',
+    image:
+      'https://res.cloudinary.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/niejlwued12ctp4rsenp',
+  },
+];

@@ -7,13 +7,13 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import ProductCard from '../component/ProductCard';
 import ScreenWrapper from '../containers/ScreenWrapper';
 import {featureProducts, categories} from '../assets/constants';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import CategoryCard from '../component/CategoryCard';
 import Button from '../component/common/Button';
 import SearchBar from '../component/SearchBar';
+import FeatureProductCard from '../component/ProductCard';
 
 const Home = ({navigation}) => {
   const pressHandler = () => {
@@ -47,7 +47,7 @@ const Home = ({navigation}) => {
           <View style={styles.featureProducts}>
             {featureProducts.map((product, index) => {
               return (
-                <ProductCard
+                <FeatureProductCard
                   key={index}
                   name={product.name}
                   price={product.price}

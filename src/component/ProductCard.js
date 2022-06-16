@@ -8,7 +8,7 @@ import {
 import React from 'react';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 
-const ProductCard = ({name, price, image, onPress}) => {
+const FeatureProductCard = ({name, price, image, onPress}) => {
   return (
     <Pressable style={styles.cardWrapper} onPress={onPress}>
       <Image source={{uri: image}} style={styles.image} />
@@ -20,7 +20,7 @@ const ProductCard = ({name, price, image, onPress}) => {
   );
 };
 
-export default ProductCard;
+export default FeatureProductCard;
 
 const styles = StyleSheet.create({
   cardWrapper: {
