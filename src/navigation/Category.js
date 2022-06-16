@@ -1,15 +1,65 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import ScreenWrapper from '../containers/ScreenWrapper';
+import {View, Text, FlatList, StyleSheet} from 'react-native';
+import {allCategories} from '../assets/constants';
+import CategoryCard from '../component/CategoryCard';
+import {stylesConstant} from '../styles/abstracts/abstracts';
 
 const Category = () => {
+  const renderItem = ({item}) => (
+    <View style={styles.oneCategory}>
+      <CategoryCard
+        name={item.name}
+        image={item.image}
+        onPress={() => {
+          console.log('a');
+        }}
+      />
+    </View>
+  );
   return (
-    <ScreenWrapper>
-      <View>
-        <Text style={{color: 'black'}}>testing Category</Text>
+    <View>
+      <View style={styles.headerWrapper}>
+        <Text style={styles.header}>All Categories</Text>
       </View>
-    </ScreenWrapper>
+      <View style={styles.category}>
+        <FlatList
+          data={allCategories}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          numColumns="2"
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+    </View>
   );
 };
 
 export default Category;
+
+const styles = StyleSheet.create({
+  headerWrapper: {
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowRadius: 2,
+    elevation: 8,
+  },
+  header: {
+    color: stylesConstant.color.primaryColor,
+    fontSize: 22,
+    fontWeight: 'bold',
+    paddingLeft: '4%',
+  },
+  category: {
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  oneCategory: {
+    paddingTop: 8,
+    marginHorizontal: 4,
+  },
+});
