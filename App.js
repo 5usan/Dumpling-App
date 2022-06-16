@@ -13,6 +13,7 @@ import routes from './src/routes/routes';
 import {Provider} from 'react-redux';
 import {store} from './src/store/store';
 import IconContainer from './src/component/IconContainer';
+import {stylesConstant} from './src/styles/abstracts/abstracts';
 const Tab = createBottomTabNavigator();
 
 const App = () => {
@@ -38,12 +39,14 @@ const App = () => {
                       />
                     );
                   },
-                  tabBarActiveTintColor: 'tomato',
-                  tabBarInactiveTintColor: 'gray',
+                  tabBarActiveTintColor: stylesConstant.color.btnColor,
+                  tabBarInactiveTintColor: stylesConstant.color.inActiveColor,
                   tabBarShowLabel: false,
                   headerShown: obj.showHeader,
                   tabBarAllowFontScaling: true,
-                  tabBarBadgeStyle: {backgroundColor: 'green'},
+                  tabBarBadgeStyle: {
+                    backgroundColor: stylesConstant.color.colorSuccess,
+                  },
                   tabBarStyle: {justifyContent: 'center'},
                   tabBarHideOnKeyboard: true,
                   ...(obj.tabBarBadge ? {tabBarBadge: 3} : {}),
