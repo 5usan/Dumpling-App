@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
+import {View, Text, FlatList, StyleSheet, Dimensions} from 'react-native';
 import {allCategories} from '../assets/constants';
 import CategoryCard from '../component/CategoryCard';
 import {stylesConstant} from '../styles/abstracts/abstracts';
@@ -28,6 +28,7 @@ const Category = () => {
           keyExtractor={item => item.id}
           numColumns="2"
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 110}}
         />
       </View>
     </View>
@@ -38,7 +39,7 @@ export default Category;
 
 const styles = StyleSheet.create({
   headerWrapper: {
-    height: 50,
+    height: '6%',
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',

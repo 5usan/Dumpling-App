@@ -37,17 +37,17 @@ const styles = StyleSheet.create({
   textContainer: {
     backgroundColor: 'rgba(68, 68, 68, 0.6)',
     // borderRadius: 50,
-    width: '98%',
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-    padding: 2,
+    padding: 3,
   },
 
   text: {
-    fontSize: 18,
-    color: 'white',
+    fontSize: 17,
+    color: '#ededed',
     fontWeight: '300',
     letterSpacing: 1,
     textAlign: 'center',

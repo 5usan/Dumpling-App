@@ -7,17 +7,21 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import ProductCard from '../component/ProductCard';
 import ScreenWrapper from '../containers/ScreenWrapper';
 import {featureProducts, categories} from '../assets/constants';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import CategoryCard from '../component/CategoryCard';
 import Button from '../component/common/Button';
 import SearchBar from '../component/SearchBar';
+import FeatureProductCard from '../component/FeatureProductCard';
 
 const Home = ({navigation}) => {
-  const pressHandler = () => {
-    navigation.navigate('Category');
+  const pressHandler = e => {
+    if (e) {
+      navigation.navigate('Search');
+    } else {
+      navigation.navigate('Category');
+    }
   };
   return (
     <ScreenWrapper>
@@ -40,14 +44,19 @@ const Home = ({navigation}) => {
         <View style={styles.heading}>
           <Text style={styles.header}>Exclusively at Dumpling</Text>
           <View style={styles.btn}>
-            <Button name="See More" />
+            <Button
+              name="See More"
+              onPress={() => {
+                navigation.navigate('Search');
+              }}
+            />
           </View>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={styles.featureProducts}>
             {featureProducts.map((product, index) => {
               return (
-                <ProductCard
+                <FeatureProductCard
                   key={index}
                   name={product.name}
                   price={product.price}
@@ -64,9 +73,14 @@ const Home = ({navigation}) => {
 
       <View style={styles.features}>
         <View style={styles.heading}>
-          <Text style={styles.header}>Categories</Text>
+          <Text style={styles.header}>Feature Categories</Text>
           <View style={styles.btn}>
-            <Button name="See More" onPress={pressHandler} />
+            <Button
+              name="See More"
+              onPress={() => {
+                navigation.navigate('Category');
+              }}
+            />
           </View>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -112,6 +126,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     backgroundColor: stylesConstant.color.cardBackgroundColor,
     paddingBottom: 10,
+    borderRadius: 10,
   },
 
   heading: {
@@ -125,7 +140,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: stylesConstant.color.primaryColor,
     padding: 10,
-    paddingLeft: 0,
+    paddingLeft: 5,
     letterSpacing: 0.8,
   },
 
