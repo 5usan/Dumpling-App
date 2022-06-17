@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import ScreenWrapper from '../containers/ScreenWrapper';
 import {featureProducts, categories} from '../assets/constants';
@@ -17,14 +18,20 @@ import FeatureProductCard from '../component/FeatureProductCard';
 import {
   useGetAllCategoryQuery,
   useGetAllFeaturedProductQuery,
-  useGetAllProductQuery,
 } from '../services/dumplingApi';
 import ProductDetails from '../component/ProductDetails';
 
 const Home = ({navigation}) => {
-  const {data: featuredProductList, error: error2} =
-    useGetAllFeaturedProductQuery();
-  const {data: categoryList, error: error3} = useGetAllCategoryQuery();
+  const {
+    data: featuredProductList,
+    error: error1,
+    isLoading: isLoading1,
+  } = useGetAllFeaturedProductQuery();
+  const {
+    data: categoryList,
+    error: error2,
+    isLoading: isLoading2,
+  } = useGetAllCategoryQuery();
   const [detailProduct, detailProductSet] = useState(null);
   return (
     <>
@@ -78,6 +85,14 @@ const Home = ({navigation}) => {
                     />
                   );
                 })}
+              {isLoading1 && (
+                <ActivityIndicator
+                  size={'large'}
+                  animating={true}
+                  color={stylesConstant.color.btnColor}
+                />
+              )}
+              {error1 && <Text style={styles.error}>An Error Occured!</Text>}
             </View>
           </ScrollView>
         </View>
@@ -96,18 +111,27 @@ const Home = ({navigation}) => {
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.featureProducts}>
-              {categories.map((category, index) => {
-                return (
-                  <CategoryCard
-                    key={index}
-                    name={category.name}
-                    image={category.image}
-                    onPress={() => {
-                      navigation.navigate('Search', {value: category.name});
-                    }}
-                  />
-                );
-              })}
+              {categoryList &&
+                categoryList.data.map((category, index) => {
+                  return (
+                    <CategoryCard
+                      key={index}
+                      name={category.name}
+                      image={categories[index]}
+                      onPress={() => {
+                        navigation.navigate('Search', {value: category.name});
+                      }}
+                    />
+                  );
+                })}
+              {isLoading2 && (
+                <ActivityIndicator
+                  size={'large'}
+                  animating={true}
+                  color={stylesConstant.color.btnColor}
+                />
+              )}
+              {error2 && <Text style={styles.error}>An Error Occured!</Text>}
             </View>
           </ScrollView>
         </View>
@@ -168,6 +192,10 @@ const styles = StyleSheet.create({
   btn: {
     marginRight: 5,
   },
-
+  error: {
+    color: stylesConstant.color.inActiveColor,
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
   featureProducts: {flexDirection: 'row'},
 });

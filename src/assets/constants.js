@@ -6,44 +6,19 @@ export const featureProducts = [
 ];
 
 export const categories = [
-  {
-    name: 'Veg',
-    image:
-      'https://biancazapatka.com/wp-content/uploads/2019/01/vegetable-dumplings-vegan-gyoza-potstickers-ravioli-jiaozi-wrappers-homemade-recipe-rezept-gemuese-teigtaschen-vegetarian-vegetarisch-pasta-dough-best.jpg',
-  },
-  {
-    name: 'Chicken',
-    image:
-      'https://mission-food.com/wp-content/uploads/2017/01/Spicy-Beef-Dumplings-28.jpg',
-  },
-  {
-    name: 'Pork',
-    image:
-      'https://biancazapatka.com/wp-content/uploads/2019/01/vegetable-dumplings-vegan-gyoza-potstickers-ravioli-jiaozi-wrappers-homemade-recipe-rezept-gemuese-teigtaschen-vegetarian-vegetarisch-pasta-dough-best.jpg',
-  },
-  // {
-  //   name: 'Kalij momo',
-  //   image: '',
-  // },
-  // {
-  //   name: 'Buff momo',
-  //   image: '',
-  // },
+  'https://biancazapatka.com/wp-content/uploads/2019/01/vegetable-dumplings-vegan-gyoza-potstickers-ravioli-jiaozi-wrappers-homemade-recipe-rezept-gemuese-teigtaschen-vegetarian-vegetarisch-pasta-dough-best.jpg',
+  'https://mission-food.com/wp-content/uploads/2017/01/Spicy-Beef-Dumplings-28.jpg',
+  'https://biancazapatka.com/wp-content/uploads/2019/01/vegetable-dumplings-vegan-gyoza-potstickers-ravioli-jiaozi-wrappers-homemade-recipe-rezept-gemuese-teigtaschen-vegetarian-vegetarisch-pasta-dough-best.jpg',
+  'https://tiffycooks.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-02-at-1.01.20-AM.png',
 ];
 
 export const allCategories = [
   'https://biancazapatka.com/wp-content/uploads/2019/01/vegetable-dumplings-vegan-gyoza-potstickers-ravioli-jiaozi-wrappers-homemade-recipe-rezept-gemuese-teigtaschen-vegetarian-vegetarisch-pasta-dough-best.jpg',
-
   'https://mission-food.com/wp-content/uploads/2017/01/Spicy-Beef-Dumplings-28.jpg',
-
   'https://biancazapatka.com/wp-content/uploads/2019/01/vegetable-dumplings-vegan-gyoza-potstickers-ravioli-jiaozi-wrappers-homemade-recipe-rezept-gemuese-teigtaschen-vegetarian-vegetarisch-pasta-dough-best.jpg',
-
   'https://www.halfbakedharvest.com/wp-content/uploads/2021/11/French-Onion-Dumplings-1.jpg',
-
   'https://tiffycooks.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-02-at-1.01.20-AM.png',
-
   'https://www.halfbakedharvest.com/wp-content/uploads/2021/11/French-Onion-Dumplings-1.jpg',
-
   'https://tiffycooks.com/wp-content/uploads/2021/08/Screen-Shot-2021-08-02-at-1.01.20-AM.png',
 ];
 
