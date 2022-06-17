@@ -50,7 +50,7 @@ const Search = () => {
       <View style={styles.headerWrapper}>
         {searchShow ? (
           <SearchBar
-            placeholder={'Search by name,category here...'}
+            placeholder={'Search by name, category here...'}
             touchHandler={touchHandler}
             valueSet={handleSearch}
           />
@@ -67,13 +67,13 @@ const Search = () => {
           </>
         )}
       </View>
-      <View style={styles.product}>
+      <View style={styles.productWrapper}>
         <FlatList
           data={allProducts}
           renderItem={renderItem}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: 57}}
+          contentContainerStyle={{paddingBottom: "28%"}}
         />
       </View>
     </View>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   headerWrapper: {
-    height: 50,
+    height: '6.6%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -96,18 +96,22 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 1},
     shadowRadius: 2,
     elevation: 8,
-    paddingHorizontal: 10,
+    paddingHorizontal: '4%',
   },
   header: {
     color: stylesConstant.color.primaryColor,
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: '600',
+  },
+
+  productWrapper: {
+    padding: '2%',
+    paddingTop: 0,
   },
 
   product: {
     marginTop: 8,
     marginHorizontal: 8,
-    opacity: 1,
   },
   singleProduct: {
     position: 'absolute',
@@ -115,6 +119,10 @@ const styles = StyleSheet.create({
     height: '88%',
     width: '100%',
     zIndex: 1,
-    padding: 40,
+    padding: '8%',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
