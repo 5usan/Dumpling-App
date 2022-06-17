@@ -83,15 +83,25 @@ const Search = ({route}) => {
           )}
         </View>
         <View style={styles.productWrapper}>
-          {data && (
-            <FlatList
-              data={filterItem(data.data, query)}
-              renderItem={renderItem}
-              keyExtractor={item => item._id}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{paddingBottom: '28%'}}
-            />
-          )}
+          {data &&
+            (() => {
+              let temp = filterItem(data.data, query);
+              if (temp.length === 0)
+                return (
+                  <Text style={styles.error}>
+                    Sorry, No Item Found For Your Query.
+                  </Text>
+                );
+              return (
+                <FlatList
+                  data={temp}
+                  renderItem={renderItem}
+                  keyExtractor={item => item._id}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{paddingBottom: '28%'}}
+                />
+              );
+            })()}
           {isLoading && (
             <ActivityIndicator
               size={'large'}
