@@ -35,48 +35,48 @@ const Search = () => {
   };
 
   return (
-    <View style={styles.wrapper}>
-      {showSingleProduct && (
-        <View style={styles.singleProduct}>
-          <ProductDetails
-            name={selectedProduct.name}
-            image={selectedProduct.image}
-            description={selectedProduct.description}
-            price={selectedProduct.price}
-            onPress={() => setShowSingleProduct(false)}
+    <>
+      <View style={styles.wrapper}>
+        <View style={styles.headerWrapper}>
+          {searchShow ? (
+            <SearchBar
+              placeholder={'Search by name, category here...'}
+              touchHandler={touchHandler}
+              valueSet={handleSearch}
+            />
+          ) : (
+            <>
+              <Text style={styles.header}>All Products</Text>
+              <Pressable onPress={setSearchShow}>
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  color={stylesConstant.color.inActiveColor}
+                  size={18}
+                />
+              </Pressable>
+            </>
+          )}
+        </View>
+        <View style={styles.productWrapper}>
+          <FlatList
+            data={allProducts}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{paddingBottom: '28%'}}
           />
         </View>
-      )}
-      <View style={styles.headerWrapper}>
-        {searchShow ? (
-          <SearchBar
-            placeholder={'Search by name, category here...'}
-            touchHandler={touchHandler}
-            valueSet={handleSearch}
-          />
-        ) : (
-          <>
-            <Text style={styles.header}>All Products</Text>
-            <Pressable onPress={setSearchShow}>
-              <FontAwesomeIcon
-                icon={faSearch}
-                color={stylesConstant.color.inActiveColor}
-                size={18}
-              />
-            </Pressable>
-          </>
-        )}
       </View>
-      <View style={styles.productWrapper}>
-        <FlatList
-          data={allProducts}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: "28%"}}
+      {showSingleProduct && (
+        <ProductDetails
+          name={selectedProduct.name}
+          image={selectedProduct.image}
+          description={selectedProduct.description}
+          price={selectedProduct.price}
+          onPress={() => setShowSingleProduct(false)}
         />
-      </View>
-    </View>
+      )}
+    </>
   );
 };
 
@@ -112,17 +112,5 @@ const styles = StyleSheet.create({
   product: {
     marginTop: 8,
     marginHorizontal: 8,
-  },
-  singleProduct: {
-    position: 'absolute',
-    top: '6%',
-    height: '88%',
-    width: '100%',
-    zIndex: 1,
-    padding: '8%',
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

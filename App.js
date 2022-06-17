@@ -67,7 +67,7 @@ const App = () => {
   };
   return (
     <Provider store={store}>
-      <MainContainer></MainContainer>
+      <MainContainer />
     </Provider>
   );
 };

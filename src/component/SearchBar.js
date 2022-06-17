@@ -20,6 +20,7 @@ const SearchBar = ({value, valueSet, placeholder, touchHandler}) => {
         placeholder={placeholder}
         placeholderTextColor={stylesConstant.color.inActiveColor}
         onBlur={() => valueSet(input.trim())}
+        onEndEditing={() => touchHandler(input.trim())}
       />
       <TouchableWithoutFeedback onPress={touchHandler}>
         <View style={styles.iconWrapper}>
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderRadius: 20,
-    color: stylesConstant.color.inActiveColor,
+    color: stylesConstant.color.primaryColor,
   },
   iconWrapper: {
     position: 'absolute',

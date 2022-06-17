@@ -19,46 +19,48 @@ import {
 const ProductDetails = ({name, image, description, price, onPress}) => {
   const [count, setCount] = useState(1);
   return (
-    <View style={styles.wrapper}>
-      <Image source={{uri: image}} style={styles.image} />
-      <Pressable style={styles.back} onPress={onPress}>
-        <FontAwesomeIcon
-          icon={faCircleArrowLeft}
-          size={22}
-          color={stylesConstant.color.btnColor}
-        />
-      </Pressable>
-      <View style={styles.description}>
-        <View style={styles.nameWithPrice}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.price}>{price}</Text>
+    <View style={styles.singleProduct}>
+      <View style={styles.wrapper}>
+        <Image source={{uri: image}} style={styles.image} />
+        <Pressable style={styles.back} onPress={onPress}>
+          <FontAwesomeIcon
+            icon={faCircleArrowLeft}
+            size={22}
+            color={stylesConstant.color.btnColor}
+          />
+        </Pressable>
+        <View style={styles.description}>
+          <View style={styles.nameWithPrice}>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.price}>{price}</Text>
+          </View>
+          <Image source={rating} style={styles.rating} />
+          <Text style={styles.desc}>{description}</Text>
+          <Text style={styles.ingredients}>Ingredients</Text>
+          <Text style={styles.desc}>
+            Momos are made with maida (refined flour) which is the starchy part
+            of the grain after the removal of its fibrous bran. Then, it is
+            bleached with chemicals like Azodicarbonamide, chlorinegas, benzoyl
+            peroxide, or other bleaches.
+          </Text>
         </View>
-        <Image source={rating} style={styles.rating} />
-        <Text style={styles.desc}>{description}</Text>
-        <Text style={styles.ingredients}>Ingredients</Text>
-        <Text style={styles.desc}>
-          Momos are made with maida (refined flour) which is the starchy part of
-          the grain after the removal of its fibrous bran. Then, it is bleached
-          with chemicals like Azodicarbonamide, chlorinegas, benzoyl peroxide,
-          or other bleaches.
-        </Text>
-      </View>
-      <View style={styles.dealing}>
-        <Text style={styles.lowerPrice}>{price}</Text>
-        <View style={styles.addToCart}>
-          {count > 0 && (
+        <View style={styles.dealing}>
+          <Text style={styles.lowerPrice}>Rs. {price}</Text>
+          <View style={styles.addToCart}>
+            {count > 0 && (
+              <Pressable
+                onPress={() => setCount(pre => pre - 1)}
+                onLongPress={() => setCount(pre => pre - 5)}>
+                <FontAwesomeIcon icon={faMinus} size={20} color="#8f8f8f" />
+              </Pressable>
+            )}
+            <Text style={styles.value}>{count}</Text>
             <Pressable
-              onPress={() => setCount(pre => pre - 1)}
-              onLongPress={() => setCount(pre => pre - 5)}>
-              <FontAwesomeIcon icon={faMinus} size={20} color="#8f8f8f" />
+              onPress={() => setCount(pre => pre + 1)}
+              onLongPress={() => setCount(pre => pre + 5)}>
+              <FontAwesomeIcon icon={faPlus} size={20} color="#8f8f8f" />
             </Pressable>
-          )}
-          <Text style={styles.value}>{count}</Text>
-          <Pressable
-            onPress={() => setCount(pre => pre + 1)}
-            onLongPress={() => setCount(pre => pre + 5)}>
-            <FontAwesomeIcon icon={faPlus} size={20} color="#8f8f8f" />
-          </Pressable>
+          </View>
         </View>
       </View>
     </View>
@@ -68,11 +70,23 @@ const ProductDetails = ({name, image, description, price, onPress}) => {
 export default ProductDetails;
 
 const styles = StyleSheet.create({
+  singleProduct: {
+    position: 'absolute',
+    top: '0%',
+    height: '100%',
+    width: '100%',
+    zIndex: 4,
+    paddingHorizontal: '5%',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   wrapper: {
     backgroundColor: stylesConstant.color.cardBackgroundColor,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    height: '100%',
+    height: '90%',
     borderRadius: 10,
     position: 'relative',
     borderRadius: 15,

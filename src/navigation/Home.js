@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -19,94 +19,109 @@ import {
   useGetAllFeaturedProductQuery,
   useGetAllProductQuery,
 } from '../services/dumplingApi';
+import ProductDetails from '../component/ProductDetails';
 
 const Home = ({navigation}) => {
-  const {data: productList, error: error1} = useGetAllProductQuery();
   const {data: featuredProductList, error: error2} =
     useGetAllFeaturedProductQuery();
   const {data: categoryList, error: error3} = useGetAllCategoryQuery();
-  console.log(productList, error1);
-  console.log(featuredProductList, error2);
-  console.log(categoryList, error3);
-
+  const [detailProduct, detailProductSet] = useState(null);
   return (
-    <ScreenWrapper>
-      <View style={styles.searchBarWrapper}>
-        <SearchBar
-          placeholder={'Search by name, category here...'}
-          value={''}
-          valueSet={() => null}
-        />
-      </View>
-      <View style={styles.heroSection}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: 'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
-          }}
-        />
-      </View>
-      <View style={styles.features}>
-        <View style={styles.heading}>
-          <Text style={styles.header}>Exclusively at Dumpling</Text>
-          <View style={styles.btn}>
-            <Button
-              name="See More"
-              onPress={() => {
-                navigation.navigate('Search');
-              }}
-            />
-          </View>
+    <>
+      <ScreenWrapper>
+        <View style={styles.searchBarWrapper}>
+          <SearchBar
+            placeholder={'Search by name, category here...'}
+            value={''}
+            valueSet={() => null}
+            touchHandler={value => navigation.navigate('Search', {value})}
+          />
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={styles.featureProducts}>
-            {featureProducts.map((product, index) => {
-              return (
-                <FeatureProductCard
-                  key={index}
-                  name={product.name}
-                  price={product.price}
-                  image={product.image}
-                  onPress={() => {
-                    console.log('a');
-                  }}
-                />
-              );
-            })}
+        <View style={styles.heroSection}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: 'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
+            }}
+          />
+        </View>
+        <View style={styles.features}>
+          <View style={styles.heading}>
+            <Text style={styles.header}>Exclusively at Dumpling</Text>
+            <View style={styles.btn}>
+              <Button
+                name="See More"
+                onPress={() => {
+                  navigation.navigate('Search');
+                }}
+              />
+            </View>
           </View>
-        </ScrollView>
-      </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.featureProducts}>
+              {featuredProductList &&
+                featuredProductList.data.map((product, index) => {
+                  return (
+                    <FeatureProductCard
+                      key={index}
+                      name={product.name}
+                      price={product.price}
+                      image={featureProducts[index]}
+                      onPress={() => {
+                        detailProductSet({
+                          name: product.name,
+                          price: product.price,
+                          image: featureProducts[index],
+                          description: product.description,
+                        });
+                      }}
+                    />
+                  );
+                })}
+            </View>
+          </ScrollView>
+        </View>
 
-      <View style={styles.features}>
-        <View style={styles.heading}>
-          <Text style={styles.header}>Feature Categories</Text>
-          <View style={styles.btn}>
-            <Button
-              name="See More"
-              onPress={() => {
-                navigation.navigate('Category');
-              }}
-            />
+        <View style={styles.features}>
+          <View style={styles.heading}>
+            <Text style={styles.header}>Feature Categories</Text>
+            <View style={styles.btn}>
+              <Button
+                name="See More"
+                onPress={() => {
+                  navigation.navigate('Category');
+                }}
+              />
+            </View>
           </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.featureProducts}>
+              {categories.map((category, index) => {
+                return (
+                  <CategoryCard
+                    key={index}
+                    name={category.name}
+                    image={category.image}
+                    onPress={() => {
+                      navigation.navigate('Search', {value: category.name});
+                    }}
+                  />
+                );
+              })}
+            </View>
+          </ScrollView>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={styles.featureProducts}>
-            {categories.map((category, index) => {
-              return (
-                <CategoryCard
-                  key={index}
-                  name={category.name}
-                  image={category.image}
-                  onPress={() => {
-                    console.log('a');
-                  }}
-                />
-              );
-            })}
-          </View>
-        </ScrollView>
-      </View>
-    </ScreenWrapper>
+      </ScreenWrapper>
+      {detailProduct && (
+        <ProductDetails
+          description={detailProduct.description}
+          image={detailProduct.image}
+          name={detailProduct.name}
+          price={detailProduct.price}
+          onPress={() => detailProductSet(null)}
+        />
+      )}
+    </>
   );
 };
 
