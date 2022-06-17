@@ -22,7 +22,11 @@ const ProductDetails = ({name, image, description, price, onPress}) => {
     <View style={styles.wrapper}>
       <Image source={{uri: image}} style={styles.image} />
       <Pressable style={styles.back} onPress={onPress}>
-        <FontAwesomeIcon icon={faCircleArrowLeft} size={30} color="#8f8f8f" />
+        <FontAwesomeIcon
+          icon={faCircleArrowLeft}
+          size={22}
+          color={stylesConstant.color.btnColor}
+        />
       </Pressable>
       <View style={styles.description}>
         <View style={styles.nameWithPrice}>
@@ -43,13 +47,17 @@ const ProductDetails = ({name, image, description, price, onPress}) => {
         <Text style={styles.lowerPrice}>{price}</Text>
         <View style={styles.addToCart}>
           {count > 0 && (
-            <Pressable onPress={() => setCount(pre => pre - 1)}>
-              <FontAwesomeIcon icon={faMinus} size={25} color="#8f8f8f" />
+            <Pressable
+              onPress={() => setCount(pre => pre - 1)}
+              onLongPress={() => setCount(pre => pre - 5)}>
+              <FontAwesomeIcon icon={faMinus} size={20} color="#8f8f8f" />
             </Pressable>
           )}
           <Text style={styles.value}>{count}</Text>
-          <Pressable onPress={() => setCount(pre => pre + 1)}>
-            <FontAwesomeIcon icon={faPlus} size={25} color="#8f8f8f" />
+          <Pressable
+            onPress={() => setCount(pre => pre + 1)}
+            onLongPress={() => setCount(pre => pre + 5)}>
+            <FontAwesomeIcon icon={faPlus} size={20} color="#8f8f8f" />
           </Pressable>
         </View>
       </View>
@@ -67,20 +75,22 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 10,
     position: 'relative',
+    borderRadius: 15,
   },
   back: {
     position: 'absolute',
-    top: 10,
-    left: 10,
+    padding: '12%',
   },
   image: {
     height: '50%',
     width: '100%',
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25,
+    borderRadius: 15,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
   description: {
     padding: 20,
+    color: stylesConstant.color.primaryColor,
   },
   nameWithPrice: {
     flexDirection: 'row',
@@ -104,6 +114,7 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     marginBottom: 10,
     textAlign: 'justify',
+    color: stylesConstant.color.primaryColor,
   },
   rating: {
     width: 60,
@@ -122,7 +133,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 15,
-    padding: 10,
+    height: '9%',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    paddingHorizontal: '4%',
   },
   lowerPrice: {
     color: stylesConstant.color.secondaryColor,
@@ -135,10 +150,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: stylesConstant.color.secondaryColor,
     borderRadius: 15,
-    padding: 10,
+    height: '70%',
+    padding: '2%',
   },
   value: {
-    fontSize: 25,
+    fontSize: 29,
     paddingHorizontal: 10,
     color: stylesConstant.color.primaryColor,
   },
