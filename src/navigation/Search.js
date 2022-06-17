@@ -1,26 +1,49 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {View, FlatList, StyleSheet, Text, Pressable} from 'react-native';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  Pressable,
+  ActivityIndicator,
+} from 'react-native';
 import SearchBar from '../component/SearchBar';
 import {allProducts} from '../assets/constants';
 import ProductCard from '../component/ProductCard';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import ProductDetails from '../component/ProductDetails';
+import {useGetAllProductQuery} from '../services/dumplingApi';
 
-const Search = () => {
+const Search = ({route}) => {
   const [searchShow, setSearchShow] = useState(false);
   const [showSingleProduct, setShowSingleProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState();
-  const renderItem = ({item}) => (
+  const {data, error, isLoading} = useGetAllProductQuery();
+  const [query, querySet] = useState('');
+  useEffect(() => {
+    querySet(route.params ? route.params.value : '');
+  }, [route.params]);
+
+  const filterItem = (data, query) => {
+    if (query.trim() === '') return [...data];
+    return data.filter(
+      item =>
+        item.name.includes(query) ||
+        item.description.includes(query) ||
+        item.category.name.includes(query),
+    );
+  };
+  const renderItem = ({index, item}) => (
     <View style={styles.product}>
       <ProductCard
-        name={item.name}
-        image={item.image}
+        name={item.name.trim()}
+        image={allProducts[index]}
         price={item.price}
         onPress={() => {
           setShowSingleProduct(true);
-          setSelectedProduct(item);
+          setSelectedProduct({...item, image: allProducts[index]});
         }}
       />
     </View>
@@ -30,7 +53,8 @@ const Search = () => {
     setSearchShow(pre => !pre);
   };
 
-  const handleSearch = () => {
+  const handleSearch = value => {
+    querySet(value.trim());
     setSearchShow(pre => !pre);
   };
 
@@ -42,6 +66,7 @@ const Search = () => {
             <SearchBar
               placeholder={'Search by name, category here...'}
               touchHandler={touchHandler}
+              value={query}
               valueSet={handleSearch}
             />
           ) : (
@@ -58,13 +83,22 @@ const Search = () => {
           )}
         </View>
         <View style={styles.productWrapper}>
-          <FlatList
-            data={allProducts}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{paddingBottom: '28%'}}
-          />
+          {data && (
+            <FlatList
+              data={filterItem(data.data, query)}
+              renderItem={renderItem}
+              keyExtractor={item => item._id}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{paddingBottom: '28%'}}
+            />
+          )}
+          {isLoading && (
+            <ActivityIndicator
+              size={'large'}
+              color={stylesConstant.color.btnColor}
+            />
+          )}
+          {error && <Text style={styles.error}>An Error Occured!</Text>}
         </View>
       </View>
       {showSingleProduct && (
@@ -88,6 +122,7 @@ const styles = StyleSheet.create({
   },
   headerWrapper: {
     height: '6.6%',
+    minHeight: 55,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -112,5 +147,10 @@ const styles = StyleSheet.create({
   product: {
     marginTop: 8,
     marginHorizontal: 8,
+  },
+  error: {
+    color: stylesConstant.color.inActiveColor,
+    fontWeight: 'bold',
+    fontSize: 24,
   },
 });

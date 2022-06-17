@@ -13,7 +13,7 @@ const ProductCard = ({name, price, image, onPress}) => {
       <View style={styles.description}>
         <View style={styles.desc}>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.price}>{price}</Text>
+          <Text style={styles.price}>Rs. {price}</Text>
           <Image source={rating} style={styles.rating} />
         </View>
         <View>

@@ -70,7 +70,7 @@ const Home = ({navigation}) => {
                 featuredProductList.data.map((product, index) => {
                   return (
                     <FeatureProductCard
-                      key={index}
+                      key={product.name + index}
                       name={product.name}
                       price={product.price}
                       image={featureProducts[index]}
@@ -115,7 +115,7 @@ const Home = ({navigation}) => {
                 categoryList.data.map((category, index) => {
                   return (
                     <CategoryCard
-                      key={index}
+                      key={category.name + index}
                       name={category.name}
                       image={categories[index]}
                       onPress={() => {
