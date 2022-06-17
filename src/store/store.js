@@ -1,15 +1,14 @@
 import {configureStore} from '@reduxjs/toolkit';
-import exampleReducer from './slice/exampleSlice';
 import {setupListeners} from '@reduxjs/toolkit/query';
-import {exampleApi} from '../services/exampleApi';
-
+import {dumplingApi} from '../services/dumplingApi';
+import cartReducer from '../store/slice/cartSlice';
 export const store = configureStore({
   reducer: {
-    counter: exampleReducer,
-    [exampleApi.reducerPath]: exampleApi.reducer,
+    cart: cartReducer,
+    [dumplingApi.reducerPath]: dumplingApi.reducer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(exampleApi.middleware),
+    getDefaultMiddleware().concat(dumplingApi.middleware),
 });
 
 setupListeners(store.dispatch);

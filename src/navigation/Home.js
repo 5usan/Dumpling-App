@@ -14,15 +14,21 @@ import CategoryCard from '../component/CategoryCard';
 import Button from '../component/common/Button';
 import SearchBar from '../component/SearchBar';
 import FeatureProductCard from '../component/FeatureProductCard';
+import {
+  useGetAllCategoryQuery,
+  useGetAllFeaturedProductQuery,
+  useGetAllProductQuery,
+} from '../services/dumplingApi';
 
 const Home = ({navigation}) => {
-  const pressHandler = e => {
-    if (e) {
-      navigation.navigate('Search');
-    } else {
-      navigation.navigate('Category');
-    }
-  };
+  const {data: productList, error: error1} = useGetAllProductQuery();
+  const {data: featuredProductList, error: error2} =
+    useGetAllFeaturedProductQuery();
+  const {data: categoryList, error: error3} = useGetAllCategoryQuery();
+  console.log(productList, error1);
+  console.log(featuredProductList, error2);
+  console.log(categoryList, error3);
+
   return (
     <ScreenWrapper>
       <View style={styles.searchBarWrapper}>
