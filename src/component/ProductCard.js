@@ -86,5 +86,6 @@ const styles = StyleSheet.create({
   },
   cart: {
     zIndex: 1,
+    paddingRight: '5%',
   },
 });

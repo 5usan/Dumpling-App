@@ -28,7 +28,7 @@ const Category = () => {
           keyExtractor={item => item.id}
           numColumns="2"
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: 110}}
+          contentContainerStyle={{paddingBottom: 115}}
         />
       </View>
     </View>
@@ -39,7 +39,7 @@ export default Category;
 
 const styles = StyleSheet.create({
   headerWrapper: {
-    height: '6%',
+    height: '6.6%',
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   header: {
     color: stylesConstant.color.primaryColor,
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: '600',
     paddingLeft: '4%',
   },
   category: {
