@@ -27,7 +27,8 @@ const App = () => {
               name={obj.name}
               component={obj.component}
               listeners
-              options={({route}) => {
+              options={({route, navigation}) => {
+                console.log(navigation);
                 return {
                   tabBarIcon: ({focused, color, size}) => {
                     let sizeApply = focused ? 28 : 24;

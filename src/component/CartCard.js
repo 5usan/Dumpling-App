@@ -17,7 +17,7 @@ const CartCard = ({image, title, price, id}) => {
         <View style={styles.functionalityWrapper}>
           <View style={styles.cartItem}>
             <View style={styles.numOfItem}>
-              <Button name={'-'} onPress={() => null} />
+              <Button style={styles.btn} name={'-'} onPress={() => null} />
               <Text
                 style={{
                   marginHorizontal: 5,
@@ -25,7 +25,7 @@ const CartCard = ({image, title, price, id}) => {
                 }}>
                 {10}
               </Text>
-              <Button name={'+'} onPress={() => null} />
+              <Button style={styles.btn} name={'+'} onPress={() => null} />
             </View>
             <Button name={'remove'} onPress={() => null} />
           </View>
@@ -42,6 +42,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: stylesConstant.color.cardBackgroundColor,
     marginVertical: 10,
+    shadowColor: stylesConstant.color.inActiveColor,
+    elevation: 10,
+    shadowOffset: {width: 12, height: 12},
+  },
+  btn: {
+    backgroundColor: stylesConstant.color.btnColor,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
   },
   imageWrapper: {
     width: '40%',

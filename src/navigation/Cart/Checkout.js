@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, StyleSheet, View, Text, ScrollView} from 'react-native';
+import CheckoutForm from '../../component/CheckoutForm';
 import ScreenWrapper from '../../containers/ScreenWrapper';
 import {stylesConstant} from '../../styles/abstracts/abstracts';
 
 const Checkout = ({navigation}) => {
+  const [showForm, showFormSet] = useState(false);
   return (
     <>
       <ScreenWrapper>
@@ -30,9 +32,18 @@ const Checkout = ({navigation}) => {
         <Button
           title="Purchase Order"
           color={stylesConstant.color.btnColor}
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => showFormSet(true)}
         />
       </View>
+      {showForm && (
+        <CheckoutForm
+          cancelHandler={() => showFormSet(false)}
+          submitHandler={() => {
+            showFormSet(false);
+            navigation.navigate('Home');
+          }}
+        />
+      )}
     </>
   );
 };
@@ -42,7 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginBottom: '0%',
-    marginTop: '10%',
+    marginTop: '6%',
   },
   cardContainer: {
     marginHorizontal: '5%',

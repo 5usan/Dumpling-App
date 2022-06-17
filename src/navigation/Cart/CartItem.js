@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginBottom: '0%',
-    marginTop: '10%',
+    marginTop: '6%',
   },
   cardContainer: {
     marginHorizontal: '5%',
