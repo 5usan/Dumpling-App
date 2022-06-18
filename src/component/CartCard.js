@@ -36,6 +36,7 @@ const CartCard = ({data}) => {
                 style={{
                   marginHorizontal: 5,
                   color: stylesConstant.color.primaryColor,
+                  padding: 0,
                 }}
                 onEndEditing={e => {
                   dispatch(
@@ -101,11 +102,12 @@ const styles = StyleSheet.create({
   cartItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
   numOfItem: {
     flexDirection: 'row',
     width: '30%',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
   },
   title: {

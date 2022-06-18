@@ -11,6 +11,8 @@ import {
 } from '../utils/formValidators';
 import Button from './common/Button';
 import InputBox from './InputBox';
+import {useDispatch} from 'react-redux';
+import {clearCart} from '../store/slice/cartSlice';
 
 const CheckoutForm = ({submitHandler, cancelHandler}) => {
   const [formData, formDataSet] = useState({
@@ -25,6 +27,8 @@ const CheckoutForm = ({submitHandler, cancelHandler}) => {
     contact: false,
     address: false,
   });
+  const dispatch = useDispatch();
+
   const {cart} = useSelector(state => state.cart);
 
   const [checkoutSubmit] = useCheckoutMutation();
@@ -116,6 +120,8 @@ const CheckoutForm = ({submitHandler, cancelHandler}) => {
       if (response.data) {
         clearForm();
         Alert.alert('Successfully received your order');
+        submitHandler();
+        dispatch(clearCart());
       } else {
         Alert.alert(response.error.data.Error);
       }

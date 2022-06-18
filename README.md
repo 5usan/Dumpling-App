@@ -6,14 +6,19 @@ This project provides mobile platform support for Dumpling Store service.
 ## Packages Used
 
 ```
+   "@fortawesome/fontawesome-svg-core"
+    "@fortawesome/free-solid-svg-icons"
+    "@fortawesome/react-native-fontawesome"
     "@react-navigation/bottom-tabs"
     "@react-navigation/native"
     "@react-navigation/native-stack"
     "@reduxjs/toolkit"
-    "react"
+    "react": "17.0.2"
     "react-native"
+    "react-native-bootsplash"
     "react-native-safe-area-context"
     "react-native-screens"
+    "react-native-svg"
     "react-redux"
 ```
 

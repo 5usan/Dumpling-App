@@ -18,15 +18,13 @@ import RNBootSplash from 'react-native-bootsplash';
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-
   const MainContainer = () => {
     const {totalQuantity} = useSelector(state => state.cart);
     const ref = useRef('');
 
     return (
       <NavigationContainer
-      onReady={() => RNBootSplash.hide({duration: 5000, fade: true})}>
-
+        onReady={() => RNBootSplash.hide({duration: 5000, fade: true})}>
         <Tab.Navigator>
           {routes.map((obj, i) => (
             <Tab.Screen

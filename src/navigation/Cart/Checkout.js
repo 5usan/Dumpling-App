@@ -51,6 +51,7 @@ const Checkout = ({navigation}) => {
           cancelHandler={() => showFormSet(false)}
           submitHandler={() => {
             showFormSet(false);
+            navigation.navigate('Cart Items');
           }}
         />
       )}
