@@ -113,10 +113,7 @@ const Search = ({route}) => {
       </View>
       {showSingleProduct && (
         <ProductDetails
-          name={selectedProduct.name}
-          image={selectedProduct.image}
-          description={selectedProduct.description}
-          price={selectedProduct.price}
+          data={selectedProduct}
           onPress={() => setShowSingleProduct(false)}
         />
       )}

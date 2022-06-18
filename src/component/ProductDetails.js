@@ -1,11 +1,4 @@
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import rating from '../assets/rating.png';
@@ -15,9 +8,13 @@ import {
   faMinus,
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToCart, decrementQuantity} from '../store/slice/cartSlice';
 
-const ProductDetails = ({name, image, description, price, onPress}) => {
-  const [count, setCount] = useState(1);
+const ProductDetails = ({onPress, data}) => {
+  const {cart} = useSelector(state => state.cart);
+  const {name, image, description, price} = data;
+  const dispatch = useDispatch();
   return (
     <View style={styles.singleProduct}>
       <View style={styles.wrapper}>
@@ -32,7 +29,7 @@ const ProductDetails = ({name, image, description, price, onPress}) => {
         <View style={styles.description}>
           <View style={styles.nameWithPrice}>
             <Text style={styles.name}>{name}</Text>
-            <Text style={styles.price}>{price}</Text>
+            <Text style={styles.price}>Rs. {price}</Text>
           </View>
           <Image source={rating} style={styles.rating} />
           <Text style={styles.desc}>{description}</Text>
@@ -47,17 +44,19 @@ const ProductDetails = ({name, image, description, price, onPress}) => {
         <View style={styles.dealing}>
           <Text style={styles.lowerPrice}>Rs. {price}</Text>
           <View style={styles.addToCart}>
-            {count > 0 && (
-              <Pressable
-                onPress={() => setCount(pre => pre - 1)}
-                onLongPress={() => setCount(pre => pre - 5)}>
+            {cart.filter(obj => obj.productId === data.productId)[0]?.quantity >
+              0 && (
+              <Pressable onPress={() => dispatch(decrementQuantity({...data}))}>
                 <FontAwesomeIcon icon={faMinus} size={20} color="#8f8f8f" />
               </Pressable>
             )}
-            <Text style={styles.value}>{count}</Text>
-            <Pressable
-              onPress={() => setCount(pre => pre + 1)}
-              onLongPress={() => setCount(pre => pre + 5)}>
+            <Text style={styles.value}>
+              {
+                cart.filter(obj => obj.productId === data.productId)[0]
+                  ?.quantity
+              }
+            </Text>
+            <Pressable onPress={() => dispatch(addToCart({...data}))}>
               <FontAwesomeIcon icon={faPlus} size={20} color="#8f8f8f" />
             </Pressable>
           </View>

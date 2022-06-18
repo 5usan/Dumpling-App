@@ -76,10 +76,8 @@ const Home = ({navigation}) => {
                       image={featureProducts[index]}
                       onPress={() => {
                         detailProductSet({
-                          name: product.name,
-                          price: product.price,
+                          ...product,
                           image: featureProducts[index],
-                          description: product.description,
                         });
                       }}
                     />
@@ -138,10 +136,7 @@ const Home = ({navigation}) => {
       </ScreenWrapper>
       {detailProduct && (
         <ProductDetails
-          description={detailProduct.description}
-          image={detailProduct.image}
-          name={detailProduct.name}
-          price={detailProduct.price}
+          data={detailProduct}
           onPress={() => detailProductSet(null)}
         />
       )}

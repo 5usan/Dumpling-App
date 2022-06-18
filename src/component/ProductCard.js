@@ -7,6 +7,7 @@ import rating from '../assets/rating.png';
 
 const ProductCard = ({name, price, image, onPress}) => {
   const [cartAdded, setCartAdded] = useState(false);
+
   return (
     <Pressable style={styles.wrapper} onPress={onPress}>
       <Image source={{uri: image}} style={styles.image} />
