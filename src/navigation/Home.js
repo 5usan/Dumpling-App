@@ -41,7 +41,9 @@ const Home = ({navigation}) => {
             placeholder={'Search by name, category here...'}
             value={''}
             valueSet={() => null}
-            touchHandler={value => navigation.navigate('Search', {value})}
+            touchHandler={value => {
+              if (value.trim() !== '') navigation.navigate('Search', {value});
+            }}
           />
         </View>
         <View style={styles.heroSection}>
@@ -167,6 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: stylesConstant.color.cardBackgroundColor,
     paddingBottom: 10,
     borderRadius: 10,
+    width: '100%',
   },
 
   heading: {
@@ -191,6 +194,9 @@ const styles = StyleSheet.create({
     color: stylesConstant.color.inActiveColor,
     fontWeight: 'bold',
     fontSize: 24,
+    textAlign: 'center',
+    marginVertical: 20,
+    width: '100%',
   },
-  featureProducts: {flexDirection: 'row'},
+  featureProducts: {flexDirection: 'row', width: '100%'},
 });

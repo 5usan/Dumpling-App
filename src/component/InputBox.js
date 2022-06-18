@@ -2,7 +2,15 @@ import React, {useState} from 'react';
 import {StyleSheet, TextInput, Text, View} from 'react-native';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 
-const InputBox = ({value, valueSet, placeholder, label}) => {
+const InputBox = ({
+  value,
+  valueSet,
+  placeholder,
+  label,
+  error,
+  validator,
+  errorMessage,
+}) => {
   const [input, inputSet] = useState(value);
   return (
     <View style={styles.inputWrapper}>
@@ -15,6 +23,7 @@ const InputBox = ({value, valueSet, placeholder, label}) => {
         placeholderTextColor={stylesConstant.color.inActiveColor}
         onBlur={() => valueSet(input.trim())}
       />
+      {error && <Text style={styles.error}>{errorMessage}</Text>}
     </View>
   );
 };
@@ -47,5 +56,8 @@ const styles = StyleSheet.create({
   label: {
     color: stylesConstant.color.inActiveColor,
     fontWeight: 'bold',
+  },
+  error: {
+    color: 'red',
   },
 });

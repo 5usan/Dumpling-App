@@ -4,24 +4,27 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCartPlus, faCartShopping} from '@fortawesome/free-solid-svg-icons';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import rating from '../assets/rating.png';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToCart} from '../store/slice/cartSlice';
 
-const ProductCard = ({name, price, image, onPress}) => {
-  const [cartAdded, setCartAdded] = useState(false);
-
+const ProductCard = ({data, onPress}) => {
+  const {name, price, image} = data;
+  const cart = useSelector(state => state.cart.cart);
+  const dispatch = useDispatch();
   return (
     <Pressable style={styles.wrapper} onPress={onPress}>
       <Image source={{uri: image}} style={styles.image} />
       <View style={styles.description}>
         <View style={styles.desc}>
-          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.name}>{name.trim()}</Text>
           <Text style={styles.price}>Rs. {price}</Text>
           <Image source={rating} style={styles.rating} />
         </View>
         <View>
           <Pressable
-            onPress={() => setCartAdded(pre => !pre)}
+            onPress={() => dispatch(addToCart({...data}))}
             style={styles.cart}>
-            {!cartAdded ? (
+            {!cart.filter(obj => obj.productId === data.productId).length ? (
               <FontAwesomeIcon icon={faCartPlus} color="#4f4f4f" size={28} />
             ) : (
               <FontAwesomeIcon

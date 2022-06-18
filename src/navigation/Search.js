@@ -38,9 +38,7 @@ const Search = ({route}) => {
   const renderItem = ({index, item}) => (
     <View style={styles.product}>
       <ProductCard
-        name={item.name.trim()}
-        image={allProducts[index]}
-        price={item.price}
+        data={{...item, image: allProducts[index]}}
         onPress={() => {
           setShowSingleProduct(true);
           setSelectedProduct({...item, image: allProducts[index]});
@@ -159,5 +157,7 @@ const styles = StyleSheet.create({
     color: stylesConstant.color.inActiveColor,
     fontWeight: 'bold',
     fontSize: 24,
+    textAlign: 'center',
+    marginVertical: 20,
   },
 });

@@ -81,4 +81,11 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     marginHorizontal: 4,
   },
+  error: {
+    color: stylesConstant.color.inActiveColor,
+    fontWeight: 'bold',
+    fontSize: 24,
+    textAlign: 'center',
+    marginVertical: 20,
+  },
 });
