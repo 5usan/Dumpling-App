@@ -100,6 +100,9 @@ export const cartSlice = createSlice({
                 state.totalAmount += item.price;
                 return {...item, quantity: item.quantity + 1};
               } else {
+                Alert.alert(
+                  'Sorry your order size exceed our stock size, please forgive us!!',
+                );
                 return {...item};
               }
             } else {

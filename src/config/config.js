@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://192.168.1.66:3001/api/v1/';
+export const BASE_URL = 'https://dumpling-store.herokuapp.com/api/v1/';
 
 export const apiRoutes = {
   getAllFeaturedProduct: 'product/get/featured',
