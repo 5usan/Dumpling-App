@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -10,7 +10,10 @@ import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 
 const SearchBar = ({value, valueSet, placeholder, touchHandler}) => {
-  const [input, inputSet] = useState(value);
+  const [input, inputSet] = useState('');
+  useEffect(() => {
+    inputSet(value);
+  }, [value]);
   return (
     <View style={styles.inputWrapper}>
       <TextInput
@@ -20,6 +23,7 @@ const SearchBar = ({value, valueSet, placeholder, touchHandler}) => {
         placeholder={placeholder}
         placeholderTextColor={stylesConstant.color.inActiveColor}
         onBlur={() => valueSet(input.trim())}
+        onEndEditing={() => touchHandler(input.trim())}
       />
       <TouchableWithoutFeedback onPress={touchHandler}>
         <View style={styles.iconWrapper}>
@@ -45,6 +49,7 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
     shadowOpacity: 80,
     elevation: 20,
+    height: 42,
   },
   inputBox: {
     width: '100%',
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderRadius: 20,
-    color: stylesConstant.color.inActiveColor,
+    color: stylesConstant.color.primaryColor,
   },
   iconWrapper: {
     position: 'absolute',

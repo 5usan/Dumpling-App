@@ -2,11 +2,11 @@ import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {stylesConstant} from '../../styles/abstracts/abstracts';
 
-const Button = ({name, style, onPress}) => {
+const Button = ({name, style = null, onPress}) => {
   return (
     <View>
-      <Pressable style={styles.btn} onPress={onPress}>
-        <Text style={[styles.btnText, style]}>{name.toUpperCase()}</Text>
+      <Pressable style={style ? style : styles.btn} onPress={onPress}>
+        <Text style={[styles.btnText]}>{name.toUpperCase()}</Text>
       </Pressable>
     </View>
   );

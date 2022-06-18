@@ -13,6 +13,7 @@ export const stylesConstant = {
     cardBackgroundColor: '#FFF',
     btnColor: '#FF4500',
     inActiveColor: 'grey',
+    error: 'red',
   },
   size: {
     productCardWidth: 180,
