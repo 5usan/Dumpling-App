@@ -1,9 +1,10 @@
 import React from 'react';
-import {Image, StyleSheet, View, Text} from 'react-native';
+import {Image, StyleSheet, View, Text, TextInput} from 'react-native';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import Button from './common/Button';
 import {useDispatch} from 'react-redux';
 import {
+  adjustQuantity,
   decrementQuantity,
   incrementQuantity,
   removeFromCart,
@@ -30,13 +31,21 @@ const CartCard = ({data}) => {
                 name={'-'}
                 onPress={() => dispatch(decrementQuantity({...data}))}
               />
-              <Text
+              <TextInput
+                defaultValue={data.quantity.toString()}
                 style={{
                   marginHorizontal: 5,
                   color: stylesConstant.color.primaryColor,
-                }}>
-                {data.quantity}
-              </Text>
+                }}
+                onEndEditing={e => {
+                  dispatch(
+                    adjustQuantity({
+                      productId: data.productId,
+                      quantity: e.nativeEvent.text,
+                    }),
+                  );
+                }}
+              />
               <Button
                 style={styles.btn}
                 name={'+'}

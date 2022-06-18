@@ -51,7 +51,6 @@ const Checkout = ({navigation}) => {
           cancelHandler={() => showFormSet(false)}
           submitHandler={() => {
             showFormSet(false);
-            navigation.navigate('Home');
           }}
         />
       )}
@@ -103,11 +102,12 @@ const styles = StyleSheet.create({
   },
   itemPrice: {
     color: stylesConstant.color.inActiveColor,
-    width: '15%',
+    width: '20%',
   },
   total: {
     color: stylesConstant.color.primaryColor,
     fontWeight: 'bold',
+    marginRight: '8%',
   },
   divider: {
     borderColor: stylesConstant.color.inActiveColor,

@@ -16,11 +16,10 @@ export const dumplingApi = createApi({
     }),
     checkout: builder.mutation({
       query: data => {
-        console.log('tesit', data);
         return {
           url: apiRoutes.checkout,
           method: 'POST',
-          body: data,
+          body: {...data},
         };
       },
     }),

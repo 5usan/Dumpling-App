@@ -7,21 +7,23 @@ const InputBox = ({
   valueSet,
   placeholder,
   label,
-  error,
+  error = false,
   validator,
   errorMessage,
 }) => {
-  const [input, inputSet] = useState(value);
   return (
     <View style={styles.inputWrapper}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
-        style={styles.inputBox}
-        value={input}
-        onChangeText={value => inputSet(value)}
+        style={{...styles.inputBox, ...(error ? styles.errorBox : {})}}
+        value={value}
+        onChangeText={value => {
+          valueSet(value);
+          validator(value);
+        }}
         placeholder={placeholder}
         placeholderTextColor={stylesConstant.color.inActiveColor}
-        onBlur={() => valueSet(input.trim())}
+        onEndEditing={() => valueSet(value.trim())}
       />
       {error && <Text style={styles.error}>{errorMessage}</Text>}
     </View>
@@ -46,6 +48,9 @@ const styles = StyleSheet.create({
     color: stylesConstant.color.inActiveColor,
     backgroundColor: stylesConstant.color.cardBackgroundColor,
   },
+  errorBox: {
+    borderBottomColor: stylesConstant.color.error,
+  },
   iconWrapper: {
     position: 'absolute',
     top: '31%',
@@ -58,6 +63,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   error: {
-    color: 'red',
+    color: stylesConstant.color.error,
+    fontSize: 11,
+    position: 'absolute',
+    top: '100%',
+    marginHorizontal: 2,
   },
 });
