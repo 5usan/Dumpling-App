@@ -1,17 +1,25 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 import {allCategories} from '../assets/constants';
 import CategoryCard from '../component/CategoryCard';
 import {stylesConstant} from '../styles/abstracts/abstracts';
+import {useGetAllCategoryQuery} from '../services/dumplingApi';
 
-const Category = () => {
-  const renderItem = ({item}) => (
+const Category = ({navigation}) => {
+  const {data, error, isLoading} = useGetAllCategoryQuery();
+  const renderItem = ({index, item}) => (
     <View style={styles.oneCategory}>
       <CategoryCard
         name={item.name}
-        image={item.image}
+        image={allCategories[index]}
         onPress={() => {
-          console.log('a');
+          navigation.navigate('Search', {value: item.name});
         }}
       />
     </View>
@@ -22,14 +30,23 @@ const Category = () => {
         <Text style={styles.header}>All Categories</Text>
       </View>
       <View style={styles.category}>
-        <FlatList
-          data={allCategories}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          numColumns="2"
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: 115}}
-        />
+        {data && (
+          <FlatList
+            data={data.data}
+            renderItem={renderItem}
+            keyExtractor={item => item._id}
+            numColumns="2"
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{paddingBottom: 115}}
+          />
+        )}
+        {isLoading && (
+          <ActivityIndicator
+            size={'large'}
+            color={stylesConstant.color.btnColor}
+          />
+        )}
+        {error && <Text style={styles.error}>An Error Occured!</Text>}
       </View>
     </View>
   );
@@ -40,6 +57,7 @@ export default Category;
 const styles = StyleSheet.create({
   headerWrapper: {
     height: '6.6%',
+    minHeight: 55,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -62,5 +80,12 @@ const styles = StyleSheet.create({
   oneCategory: {
     paddingTop: 8,
     marginHorizontal: 4,
+  },
+  error: {
+    color: stylesConstant.color.inActiveColor,
+    fontWeight: 'bold',
+    fontSize: 24,
+    textAlign: 'center',
+    marginVertical: 20,
   },
 });

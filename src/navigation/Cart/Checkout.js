@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, StyleSheet, View, Text, ScrollView} from 'react-native';
+import CheckoutForm from '../../component/CheckoutForm';
 import ScreenWrapper from '../../containers/ScreenWrapper';
 import {stylesConstant} from '../../styles/abstracts/abstracts';
+import {useSelector} from 'react-redux';
 
 const Checkout = ({navigation}) => {
+  const [showForm, showFormSet] = useState(false);
+  const {cart, totalAmount} = useSelector(state => state.cart);
   return (
     <>
       <ScreenWrapper>
@@ -12,16 +16,25 @@ const Checkout = ({navigation}) => {
             <Text style={styles.textBold}> Receipt </Text>
           </View>
           <View style={styles.billContainer}>
-            <View style={styles.item}>
-              <Text style={styles.itemName}> {'Chicken MOMO'} </Text>
-              <Text style={styles.itemPrice}> Rs. {'180'}</Text>
-            </View>
+            {cart.map(obj => (
+              <View key={obj._id} style={styles.item}>
+                <Text style={styles.itemName} numberOfLines={1}>
+                  {obj.name.toUpperCase().trim()}
+                </Text>
+                <Text style={styles.itemPrice}>
+                  ( {obj.quantity} * {obj.price})
+                </Text>
+                <Text style={styles.itemPrice}>
+                  Rs. {obj.quantity * obj.price}
+                </Text>
+              </View>
+            ))}
           </View>
           <View style={styles.divider}></View>
           <View style={styles.billFooter}>
             <View style={styles.item}>
               <Text style={styles.total}> {'Total'} </Text>
-              <Text style={styles.total}> Rs. {'180'}</Text>
+              <Text style={styles.total}> Rs. {totalAmount}</Text>
             </View>
           </View>
         </ScrollView>
@@ -30,9 +43,17 @@ const Checkout = ({navigation}) => {
         <Button
           title="Purchase Order"
           color={stylesConstant.color.btnColor}
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => showFormSet(true)}
         />
       </View>
+      {showForm && (
+        <CheckoutForm
+          cancelHandler={() => showFormSet(false)}
+          submitHandler={() => {
+            showFormSet(false);
+          }}
+        />
+      )}
     </>
   );
 };
@@ -42,7 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginBottom: '0%',
-    marginTop: '10%',
+    marginTop: '6%',
   },
   cardContainer: {
     marginHorizontal: '5%',
@@ -52,6 +73,7 @@ const styles = StyleSheet.create({
   textBold: {
     fontWeight: 'bold',
     color: stylesConstant.color.primaryColor,
+    marginBottom: 5,
   },
   buttonWrapper: {
     position: 'absolute',
@@ -71,16 +93,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+    marginVertical: 10,
   },
   itemName: {
     color: stylesConstant.color.primaryColor,
+    width: '50%',
+    overflow: 'hidden',
   },
   itemPrice: {
     color: stylesConstant.color.inActiveColor,
+    width: '20%',
   },
   total: {
     color: stylesConstant.color.primaryColor,
     fontWeight: 'bold',
+    marginRight: '8%',
   },
   divider: {
     borderColor: stylesConstant.color.inActiveColor,

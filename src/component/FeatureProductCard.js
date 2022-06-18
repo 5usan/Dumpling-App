@@ -1,10 +1,4 @@
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 
@@ -14,7 +8,7 @@ const FeatureProductCard = ({name, price, image, onPress}) => {
       <Image source={{uri: image}} style={styles.image} />
       <View style={styles.cardDescription}>
         <Text style={styles.detail}>{name}</Text>
-        <Text style={styles.detail}>{price}</Text>
+        <Text style={styles.detail}>Rs. {price}</Text>
       </View>
     </Pressable>
   );

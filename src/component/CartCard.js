@@ -1,33 +1,61 @@
 import React from 'react';
-import {Image, StyleSheet, View, Text} from 'react-native';
+import {Image, StyleSheet, View, Text, TextInput} from 'react-native';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import Button from './common/Button';
+import {useDispatch} from 'react-redux';
+import {
+  adjustQuantity,
+  decrementQuantity,
+  incrementQuantity,
+  removeFromCart,
+} from '../store/slice/cartSlice';
+const CartCard = ({data}) => {
+  const {image, name, price} = data;
+  const dispatch = useDispatch();
 
-const CartCard = ({image, title, price, id}) => {
   return (
     <View style={styles.cartCard}>
       <View style={styles.imageWrapper}>
-        <Image style={styles.image} source={image} />
+        <Image style={styles.image} source={{uri: image}} />
       </View>
       <View style={styles.contentWrapper}>
         <Text style={styles.title} numberOfLines={2}>
-          {title}
+          {name.trim()}
         </Text>
         <Text style={styles.price}>Rs. {price}</Text>
         <View style={styles.functionalityWrapper}>
           <View style={styles.cartItem}>
             <View style={styles.numOfItem}>
-              <Button name={'-'} onPress={() => null} />
-              <Text
+              <Button
+                style={styles.btn}
+                name={'-'}
+                onPress={() => dispatch(decrementQuantity({...data}))}
+              />
+              <TextInput
+                defaultValue={data.quantity.toString()}
                 style={{
                   marginHorizontal: 5,
                   color: stylesConstant.color.primaryColor,
-                }}>
-                {10}
-              </Text>
-              <Button name={'+'} onPress={() => null} />
+                }}
+                onEndEditing={e => {
+                  dispatch(
+                    adjustQuantity({
+                      productId: data.productId,
+                      quantity: e.nativeEvent.text,
+                    }),
+                  );
+                }}
+              />
+              <Button
+                style={styles.btn}
+                name={'+'}
+                onPress={() => dispatch(incrementQuantity({...data}))}
+              />
             </View>
-            <Button name={'remove'} onPress={() => null} />
+            <Button
+              name={'remove'}
+              onPress={() => dispatch(removeFromCart({...data}))}
+            />
           </View>
         </View>
       </View>
@@ -42,11 +70,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: stylesConstant.color.cardBackgroundColor,
     marginVertical: 10,
+    shadowColor: stylesConstant.color.inActiveColor,
+    elevation: 10,
+    shadowOffset: {width: 12, height: 12},
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  btn: {
+    backgroundColor: stylesConstant.color.btnColor,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
   },
   imageWrapper: {
     width: '40%',
     height: 100,
-    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },

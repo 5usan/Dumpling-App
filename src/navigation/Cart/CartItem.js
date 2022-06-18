@@ -6,89 +6,69 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
 import CartCard from '../../component/CartCard';
 import ScreenWrapper from '../../containers/ScreenWrapper';
 import {stylesConstant} from '../../styles/abstracts/abstracts';
+import {useSelector, useDispatch} from 'react-redux';
+import {clearCart} from '../../store/slice/cartSlice';
 
 const CartItems = ({navigation}) => {
+  const {cart, totalQuantity, totalAmount} = useSelector(state => state.cart);
+  const dispatch = useDispatch();
   return (
     <>
       <ScreenWrapper>
         <ScrollView style={styles.cardContainer}>
           <View style={styles.topTextWrapper}>
-            <Text style={styles.textBold}> Your Orders</Text>
-            <TouchableOpacity onPress={() => null}>
-              <Text style={{color: stylesConstant.color.inActiveColor}}>
-                Clear
-              </Text>
-            </TouchableOpacity>
+            <Text style={styles.textBold}>
+              Your Orders {totalQuantity > 0 && `(${totalQuantity})`}
+            </Text>
+            {totalQuantity > 0 && (
+              <TouchableOpacity
+                onPress={() => {
+                  Alert.alert(
+                    'Are you Sure?',
+                    'You want to Clear Cart',
+                    [
+                      {
+                        text: 'Yes',
+                        onPress: () => dispatch(clearCart()),
+                      },
+                      {
+                        text: 'No',
+                        style: 'cancel',
+                      },
+                    ],
+                    {
+                      cancelable: true,
+                    },
+                  );
+                }}>
+                <Text style={{color: stylesConstant.color.inActiveColor}}>
+                  Clear
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
-          <CartCard
-            image={{
-              uri: 'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
-            }}
-            price="9"
-            title={'special Momo for momo lovers'}
-          />
-          <CartCard
-            image={{
-              uri: 'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
-            }}
-            price="9"
-            title={'special Momo'}
-          />
-          <CartCard
-            image={{
-              uri: 'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
-            }}
-            price="9"
-            title={'special Momo'}
-          />
-          <CartCard
-            image={{
-              uri: 'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
-            }}
-            price="9"
-            title={'special Momo'}
-          />
-          <CartCard
-            image={{
-              uri: 'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
-            }}
-            price="9"
-            title={'special Momo'}
-          />
-          <CartCard
-            image={{
-              uri: 'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
-            }}
-            price="9"
-            title={'special Momo'}
-          />
-          <CartCard
-            image={{
-              uri: 'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
-            }}
-            price="9"
-            title={'special Momo'}
-          />
-          <CartCard
-            image={{
-              uri: 'https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Homemade-Fried-Dumplings-with-Soy-Sauce.png',
-            }}
-            price="9"
-            title={'special Momo'}
-          />
+          {cart.map(data => (
+            <CartCard key={data.productId} data={data} />
+          ))}
+          {cart.length === 0 && (
+            <Text style={styles.error}>No Item Added.</Text>
+          )}
         </ScrollView>
       </ScreenWrapper>
-      <View style={styles.buttonWrapper}>
-        <Button
-          title="Checkout"
-          color={stylesConstant.color.btnColor}
-          onPress={() => navigation.navigate('Checkout')}
-        />
-      </View>
+      {totalAmount > 0 && (
+        <View style={styles.buttonWrapper}>
+          <Button
+            title={`Checkout (Rs. ${totalAmount})`}
+            color={stylesConstant.color.btnColor}
+            onPress={() => navigation.navigate('Checkout')}
+          />
+        </View>
+      )}
     </>
   );
 };
@@ -98,7 +78,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginBottom: '0%',
-    marginTop: '10%',
+    marginTop: '6%',
   },
   cardContainer: {
     marginHorizontal: '5%',
@@ -114,6 +94,13 @@ const styles = StyleSheet.create({
     bottom: '.4%',
     left: '5%',
     right: '5%',
+  },
+  error: {
+    color: stylesConstant.color.inActiveColor,
+    fontWeight: 'bold',
+    fontSize: 24,
+    textAlign: 'center',
+    marginVertical: 20,
   },
 });
 

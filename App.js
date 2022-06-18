@@ -6,11 +6,11 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useRef} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import routes from './src/routes/routes';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import {store} from './src/store/store';
 import IconContainer from './src/component/IconContainer';
 import {stylesConstant} from './src/styles/abstracts/abstracts';
@@ -18,20 +18,25 @@ import RNBootSplash from 'react-native-bootsplash';
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-  return (
-    <Provider store={store}>
+
+  const MainContainer = () => {
+    const {totalQuantity} = useSelector(state => state.cart);
+    const ref = useRef('');
+
+    return (
       <NavigationContainer
-        onReady={() => RNBootSplash.hide({duration: 5000, fade: true})}>
+      onReady={() => RNBootSplash.hide({duration: 5000, fade: true})}>
+
         <Tab.Navigator>
           {routes.map((obj, i) => (
             <Tab.Screen
               key={i}
               name={obj.name}
               component={obj.component}
-              listeners
-              options={({route}) => {
+              listeners={data => (ref.current = data.route.name)}
+              options={() => {
                 return {
-                  tabBarIcon: ({focused, color, size}) => {
+                  tabBarIcon: ({focused, color}) => {
                     let sizeApply = focused ? 28 : 24;
                     return (
                       <IconContainer
@@ -51,13 +56,22 @@ const App = () => {
                   },
                   tabBarStyle: {justifyContent: 'center'},
                   tabBarHideOnKeyboard: true,
-                  ...(obj.tabBarBadge ? {tabBarBadge: 3} : {}),
+                  ...(obj.tabBarBadge &&
+                  ref.current !== 'Cart' &&
+                  totalQuantity !== 0
+                    ? {tabBarBadge: totalQuantity}
+                    : {}),
                 };
               }}
             />
           ))}
         </Tab.Navigator>
       </NavigationContainer>
+    );
+  };
+  return (
+    <Provider store={store}>
+      <MainContainer />
     </Provider>
   );
 };

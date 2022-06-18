@@ -1,26 +1,47 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {View, FlatList, StyleSheet, Text, Pressable} from 'react-native';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  Pressable,
+  ActivityIndicator,
+} from 'react-native';
 import SearchBar from '../component/SearchBar';
 import {allProducts} from '../assets/constants';
 import ProductCard from '../component/ProductCard';
 import {stylesConstant} from '../styles/abstracts/abstracts';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import ProductDetails from '../component/ProductDetails';
+import {useGetAllProductQuery} from '../services/dumplingApi';
 
-const Search = () => {
+const Search = ({route}) => {
   const [searchShow, setSearchShow] = useState(false);
   const [showSingleProduct, setShowSingleProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState();
-  const renderItem = ({item}) => (
+  const {data, error, isLoading} = useGetAllProductQuery();
+  const [query, querySet] = useState('');
+  useEffect(() => {
+    querySet(route.params ? route.params.value : '');
+  }, [route.params]);
+
+  const filterItem = (data, query) => {
+    if (query.trim() === '') return [...data];
+    return data.filter(
+      item =>
+        item.name.includes(query) ||
+        item.description.includes(query) ||
+        item.category.name.includes(query),
+    );
+  };
+  const renderItem = ({index, item}) => (
     <View style={styles.product}>
       <ProductCard
-        name={item.name}
-        image={item.image}
-        price={item.price}
+        data={{...item, image: allProducts[index]}}
         onPress={() => {
           setShowSingleProduct(true);
-          setSelectedProduct(item);
+          setSelectedProduct({...item, image: allProducts[index]});
         }}
       />
     </View>
@@ -30,53 +51,71 @@ const Search = () => {
     setSearchShow(pre => !pre);
   };
 
-  const handleSearch = () => {
+  const handleSearch = value => {
+    querySet(value.trim());
     setSearchShow(pre => !pre);
   };
 
   return (
-    <View style={styles.wrapper}>
-      {showSingleProduct && (
-        <View style={styles.singleProduct}>
-          <ProductDetails
-            name={selectedProduct.name}
-            image={selectedProduct.image}
-            description={selectedProduct.description}
-            price={selectedProduct.price}
-            onPress={() => setShowSingleProduct(false)}
-          />
+    <>
+      <View style={styles.wrapper}>
+        <View style={styles.headerWrapper}>
+          {searchShow ? (
+            <SearchBar
+              placeholder={'Search by name, category here...'}
+              touchHandler={touchHandler}
+              value={query}
+              valueSet={handleSearch}
+            />
+          ) : (
+            <>
+              <Text style={styles.header}>All Products</Text>
+              <Pressable onPress={setSearchShow}>
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  color={stylesConstant.color.inActiveColor}
+                  size={18}
+                />
+              </Pressable>
+            </>
+          )}
         </View>
-      )}
-      <View style={styles.headerWrapper}>
-        {searchShow ? (
-          <SearchBar
-            placeholder={'Search by name, category here...'}
-            touchHandler={touchHandler}
-            valueSet={handleSearch}
-          />
-        ) : (
-          <>
-            <Text style={styles.header}>All Products</Text>
-            <Pressable onPress={setSearchShow}>
-              <FontAwesomeIcon
-                icon={faSearch}
-                color={stylesConstant.color.inActiveColor}
-                size={18}
-              />
-            </Pressable>
-          </>
-        )}
+        <View style={styles.productWrapper}>
+          {data &&
+            (() => {
+              let temp = filterItem(data.data, query);
+              if (temp.length === 0)
+                return (
+                  <Text style={styles.error}>
+                    Sorry, No Item Found For Your Query.
+                  </Text>
+                );
+              return (
+                <FlatList
+                  data={temp}
+                  renderItem={renderItem}
+                  keyExtractor={item => item._id}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{paddingBottom: '28%'}}
+                />
+              );
+            })()}
+          {isLoading && (
+            <ActivityIndicator
+              size={'large'}
+              color={stylesConstant.color.btnColor}
+            />
+          )}
+          {error && <Text style={styles.error}>An Error Occured!</Text>}
+        </View>
       </View>
-      <View style={styles.productWrapper}>
-        <FlatList
-          data={allProducts}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: "28%"}}
+      {showSingleProduct && (
+        <ProductDetails
+          data={selectedProduct}
+          onPress={() => setShowSingleProduct(false)}
         />
-      </View>
-    </View>
+      )}
+    </>
   );
 };
 
@@ -88,6 +127,7 @@ const styles = StyleSheet.create({
   },
   headerWrapper: {
     height: '6.6%',
+    minHeight: 55,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -113,16 +153,11 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginHorizontal: 8,
   },
-  singleProduct: {
-    position: 'absolute',
-    top: '6%',
-    height: '88%',
-    width: '100%',
-    zIndex: 1,
-    padding: '8%',
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+  error: {
+    color: stylesConstant.color.inActiveColor,
+    fontWeight: 'bold',
+    fontSize: 24,
+    textAlign: 'center',
+    marginVertical: 20,
   },
 });
